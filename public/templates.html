@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+      $(document).ready(function(){
+        $("#add-event").click(function(){
+          $("ol").append(" <li>\n" +
+            "            Regular event name:<br>\n" +
+            "            <input type=\"text\" name=\"followupNames\" value=\"Folllowup visit\">\n" +
+            "            <br>\n" +
+            "            Regular event date:<br>\n" +
+            "            <input type=\"text\" name=\"followupDates\" value=\"3\">\n" +
+            "            <br>" +
+                            "<select name=\"followupUnits\">\n" +
+                    "            <option value=\"m\">Minutes</option>\n" +
+                    "            <option value=\"h\">Hours</option>\n" +
+                    "            <option value=\"d\">Days</option>\n" +
+                    "            <option value=\"w\">Weeks</option>\n" +
+                    "            <option value=\"mm\">Months</option>\n" +
+                    "            <option value=\"yyyy\">Years</option>\n" +
+                    "        </select>" +
+                    "<br>\n" +
+            "        </li>");
+        });
+      });
+    </script>
+
+    <meta charset="UTF-8">
+    <title>Templates</title>
+</head>
+<body>
+<form id="form" action="/templates" method="post">
+    <ol>
+        <li>
+            Key event name:<br>
+            <input type="text" name="name" value="Pregnancy First Visit">
+            <br>
+        </li>
+
+
+    </ol>
+    </br>
+    </br>
+    <input id="add-event" type="button" value="Add Event">
+    <input type="submit" value="Submit">
+</form>
+
+</body>
+</html>

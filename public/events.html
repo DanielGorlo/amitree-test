@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Events</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script>
+      $.get('/templates', function(data) {
+        var templatesData = JSON.parse(data);
+        var options = "";
+        for (var i = 0; i < templatesData.length; i++) {
+            options += "<option value=" + templatesData[i]._id + ">" + templatesData[i].name + "</option>"
+        }
+        $('#template-dropdown').append(options);
+
+        $('#template-dropdown').change(function() {
+          console.log('Checked dropdown');
+          var pickedTemplateId = $(this).val();
+          for (var i = 0; i < templatesData.length; i++) {
+            var currTemplate = templatesData[i]
+            if (currTemplate._id == pickedTemplateId) {
+              for (var j = 0; j < currTemplate.followupEvents.length; j++) {
+                console.log('Adding content.');
+                var content = "";
+                var date = new Date($('#key-event-date')[0].value);
+                date.setMinutes(date.getMinutes() + currTemplate.followupEvents[j].interval);
+                content += "<p>" + j + ". Followup meeting on " + date + "</p>";
+                $('#content').html(content);
+                console.log('Adding content ' + content);
+              }
+              break;
+            }
+          }
+        })
+      });
+    </script>
+
+</head>
+<body>
+<form id="form" action="/events" method="post">
+    <ol>
+        <li>
+            Key event name:<br>
+            <input type="text" name="name" value="Pregnancy First Visit">
+            <br>
+        </li>
+        <li>
+            Template:<br>
+            <input type="date" id="key-event-date" value="2019-01-01">
+            <br>
+        </li>
+        <li>
+            <select id="template-dropdown">
+            </select>
+        </li>
+    </ol>
+    <div id='content'>
+
+    </div>
+    </br>
+    </br>
+</form>
+</body>
+</html>
